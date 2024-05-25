@@ -1,0 +1,233 @@
+NEON NUMBER 
+
+#include <stdio.h>
+
+int isNeon(int num) {
+    int square = num * num;
+    int sum = 0;
+    while (square != 0) {
+        sum += square % 10;
+        square /= 10;
+    }
+
+    return (sum == num);
+}
+
+int main() {
+    printf("Neon numbers up to 50:\n");
+    for (int i = 1; i <= 50; i++) {
+        if (isNeon(i)) {
+            printf("%d\n", i);
+        }
+    }
+    return 0;
+}
+//
+MAGIC NUMBER 
+
+#include <stdio.h>
+#include <stdbool.h>
+bool isPrime(int num) {
+    if (num <= 1) 
+    return false;
+    for (int i = 2; i * i <= num; i++) 
+    if (num % i == 0) 
+    return false;
+    return true;
+}
+int reverse(int num) {
+    int rev = 0; 
+    while (num > 0) { rev = rev * 10 + num % 10; num /= 10; }
+    return rev;
+}
+int main() {
+    int limit; 
+    printf("Enter limit: ");
+    scanf("%d", &limit);
+    for (int i = 2; i <= limit; i++) 
+    if (isPrime(i) && isPrime(reverse(i))) 
+    printf("%d ", i);
+    return 0;
+}
+
+#include<stdio.h>
+int main() {
+    int n;
+    printf("Enter the number of lemons you have: ");
+    scanf("%d", &n);
+    printf("%s", (n == 21) ? "Sufficient lemons" : (n> 21) ? "extra lemons" : " Need more lemons");
+
+    return 0;
+}
+
+
+
+
+
+
+check two lists using singly linked list 
+#include<stdlib.h>
+#include<stdio.h>
+
+struct Node{
+    int data;
+    struct Node *next;
+};
+
+void insertStart(struct Node** head, int data){
+    
+    // dynamically create memory for this newNode
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    
+    // assign data value
+    newNode->data = data;
+    // change the next node of this newNode 
+    // to current head of Linked List
+    newNode->next = *head;
+
+    //re-assign head to this newNode
+    *head = newNode;
+    printf("Inserted %d\n",newNode->data);
+}
+
+void display(struct Node* node){
+    printf("\nLinked List: ");
+    // as linked list will end when Node is Null
+    while(node!=NULL){
+        printf("%d ",node->data);
+        node = node->next;
+    }
+    printf("\n");
+}
+int same(struct Node* head1,struct Node* head2){
+    while(head1 != NULL && head2 != NULL){
+        if(head1->data != head2->data)
+            return 0; // not same
+        head1=head1->next;    
+         head2=head2->next;    
+    }
+    // if both lists are traversed and ended at the same time they are same
+    return(head1 == NULL && head2 == NULL);
+}
+
+int main()
+{
+    struct Node* head1 = NULL;
+    struct Node* head2 = NULL;
+    //h1 list
+    insertStart(&head1,100);
+    insertStart(&head1,80);
+    insertStart(&head1,60);
+    insertStart(&head1,40);
+    insertStart(&head1,20);
+    //h2 list
+    insertStart(&head2,100);
+    insertStart(&head2,80);
+    insertStart(&head2,60);
+    insertStart(&head2,40);
+    insertStart(&head2,20);
+    display(head1);
+    display(head2);
+    if(same(head1,head2)){
+        printf("The linked lists are same");
+    }
+    else{
+        printf("The linked lists are not same");
+    }
+    return 0; 
+}  
+///
+
+
+combine two list 
+
+
+#include<stdlib.h>
+#include<stdio.h>
+
+struct Node{
+    int data;
+    struct Node *next;
+};
+
+void insertStart(struct Node** head, int data){
+    
+    // dynamically create memory for this newNode
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    
+    // assign data value
+    newNode->data = data;
+    // change the next node of this newNode 
+    // to current head of Linked List
+    newNode->next = *head;
+
+    //re-assign head to this newNode
+    *head = newNode;
+    printf("Inserted %d\n",newNode->data);
+}
+
+void display(struct Node* node){
+    printf("\nLinked List: ");
+    // as linked list will end when Node is Null
+    while(node!=NULL){
+        printf("%d ",node->data);
+        node = node->next;
+    }
+    printf("\n");
+}
+int same(struct Node* head1,struct Node* head2){
+    while(head1 != NULL && head2 != NULL){
+        if(head1->data != head2->data)
+            return 0; // not same
+        head1=head1->next;    
+         head2=head2->next;    
+    }
+    // if both lists are traversed and ended at the same time they are same
+    return(head1 == NULL && head2 == NULL);
+}
+void combine(struct Node** head1, struct Node* head2) {
+    if (*head1 == NULL) {
+        *head1 = head2;
+        return;
+    }
+
+    struct Node* temp = *head1;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = head2;
+}
+
+
+int main()
+{
+    struct Node* head1 = NULL;
+    struct Node* head2 = NULL;
+    //h1 list
+    insertStart(&head1,5);
+    insertStart(&head1,4);
+    insertStart(&head1,3);
+    insertStart(&head1,2);
+    insertStart(&head1,1);
+    //h2 list
+    insertStart(&head2, 10);
+    insertStart(&head2, 9);
+    insertStart(&head2, 8);
+    insertStart(&head2, 7);
+    insertStart(&head2, 6);
+    printf("\n");
+    printf("First ");
+    display(head1);
+    printf("\n");
+    printf("Second ");
+    display(head2);
+    printf("\n");
+     // Combine the two linked lists
+    combine(&head1, head2);
+
+    // Display the combined linked list
+    printf("Combined ");
+    display(head1);
+
+    return 0;
+}
